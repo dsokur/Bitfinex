@@ -46,7 +46,6 @@ export const wsUnsubscribe = (chanelType, chanId, onUnsubscribe) => {
     };
     wss.onmessage = (event) => {
         const response = JSON.parse(event.data);
-        console.log(response)
         if(response.event === 'unsubscribed'){
             onUnsubscribe()
         }

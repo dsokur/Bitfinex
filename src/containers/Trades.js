@@ -20,8 +20,8 @@ class TradesContainer extends Component {
 	}
 
 	render() {
-		console.log('Trade', this.props)
-		return <Trades {...this.props}/>
+		const {trades} = this.props;
+		return <Trades trades={trades}/>
 	}
 }
 
