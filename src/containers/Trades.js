@@ -1,17 +1,22 @@
 import {connect} from 'react-redux'
-import OrderBook from '../components/OrderBook/OrderBook';
+import Trades from '../components/Trades/Trades';
+import {wsSubscribe} from "../services/webSockets";
+import React, {Component} from 'react';
+
+class TradesContainer extends Component {
+    componentDidMount(){
+    }
+    render() {
+        return (
+            <Trades/>
+        );
+    }
+}
 
 const mapStateToProps = (state) => {
-	return {
-		state
-	};
+    return {
+        state
+    };
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		dispatch
-	};
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderBook);
+export default connect(mapStateToProps,)(TradesContainer);
