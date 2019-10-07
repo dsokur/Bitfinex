@@ -1,7 +1,10 @@
 import config from '../configs'
 
+const connections = {}
+
 export const wsSubscribe = (type, onSubscribe, onRequest) => {
     const wss = new WebSocket(config.WS_PUBLIC_API);
+    connections[type] = wss
     const msg = JSON.stringify({
         event: 'subscribe',
         channel: type,
@@ -15,25 +18,26 @@ export const wsSubscribe = (type, onSubscribe, onRequest) => {
     };
 };
 
-export const wsUnsubscribe = (type,chanId, unSubscribe) => {
-    const wss = new WebSocket(config.WS_PUBLIC_API);
+export const wsUnsubscribe = (type, chanId, onUnsubscribe) => {
+    const wss = connections[type];
     const msg = JSON.stringify({
-        event: 'unsubscribe',
-        channel: chanId,
-        symbol: 'tBTCUSD'
+        "event": "unsubscribe",
+        chanId: chanId,
     });
-    wss.onopen = () => {
-        wss.send(msg);
-    };
-    wss.onmessage = (e) => {
-        onMessage(dispatch, getState, e)
+    wss.send(msg);
+    wss.onmessage = (event) => {
+        const response = JSON.parse(event.data);
+        console.log(response)
+        if(response.event === 'unsubscribed'){
+            onUnsubscribe()
+        }
     };
 };
 
-const onMessage = (onSubscribe, onRequest, event) => {
+export const onMessage = (onSubscribe, onRequest, event) => {
     const response = JSON.parse(event.data);
     if (Array.isArray(response)) {
-        const [chanId, data] = response
+        const [chanId, data] = response;
         onRequest(data)
     } else {
         if (response.event === 'subscribed') {

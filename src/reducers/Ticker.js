@@ -1,5 +1,6 @@
 const TICKER_SUBSCRIBED = 'TICKER_SUBSCRIBED';
-const REQUEST_DATA = 'REQUEST_DATA';
+const TICKER_UNSUBSCRIBED = 'TICKER_UNSUBSCRIBED';
+const REQUEST_TICKER_DATA = 'REQUEST_TICKER_DATA';
 
 const initialState = {
     chanId: null,
@@ -22,7 +23,10 @@ export default (state = initialState, action) => {
         case(TICKER_SUBSCRIBED): {
             return {...state, chanId: payload.chanId}
         }
-        case(REQUEST_DATA): {
+        case(TICKER_UNSUBSCRIBED): {
+            return {...initialState}
+        }
+        case(REQUEST_TICKER_DATA): {
             const [BID,
                 BID_SIZE,
                 ASK,
@@ -56,7 +60,11 @@ export const onTickerSubscribe = (data) => ({
     payload: data
 })
 
+export const onTickerUnsubscribe = () => ({
+    type: TICKER_UNSUBSCRIBED,
+})
+
 export const onTickerRequestData = (data) => ({
-    type: REQUEST_DATA,
+    type: REQUEST_TICKER_DATA,
     payload: data
 })

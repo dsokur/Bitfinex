@@ -1,12 +1,16 @@
 import {connect} from 'react-redux'
 import Ticker from '../components/Ticker/Ticker';
 import React, {Component} from 'react';
-import {wsSubscribe} from "../services/webSockets";
-import {onTickerRequestData, onTickerSubscribe} from "../reducers/Ticker";
+import {wsSubscribe, wsUnsubscribe} from "../services/webSockets";
+import {onTickerRequestData, onTickerSubscribe, onTickerUnsubscribe} from "../reducers/Ticker";
 
 class TickerContainer extends Component {
     componentDidMount() {
         wsSubscribe('ticker', this.props.onTickerSubscribe, this.props.onTickerRequestData)
+    }
+
+    componentWillUnmount() {
+        wsUnsubscribe('ticker',this.props.chanId, this.props.onTickerUnsubscribe)
     }
 
     render() {
@@ -15,10 +19,10 @@ class TickerContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({Ticker: {chanId}}) => {
     return {
-        state
+        chanId
     };
 };
 
-export default connect(mapStateToProps, {onTickerRequestData, onTickerSubscribe})(TickerContainer);
+export default connect(mapStateToProps, {onTickerRequestData, onTickerSubscribe, onTickerUnsubscribe})(TickerContainer);
