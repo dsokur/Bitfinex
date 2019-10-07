@@ -27,23 +27,11 @@ class TradesContainer extends Component {
 
 const mapStateToProps = ({
 	                         Trades: {
-		                         chanId,
-		                         ID,
-		                         MTS,
-		                         AMOUNT,
-		                         PRICE,
-		                         RATE,
-		                         PERIOD
+		                         trades
 	                         }
                          }) => {
 	return {
-		chanId,
-		ID,
-		MTS,
-		AMOUNT,
-		PRICE,
-		RATE,
-		PERIOD
+        trades
 	};
 };
 

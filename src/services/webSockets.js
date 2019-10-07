@@ -56,8 +56,9 @@ export const wsUnsubscribe = (chanelType, chanId, onUnsubscribe) => {
 export const onMessage = (onSubscribe, onRequest, event) => {
     const response = JSON.parse(event.data);
     if (Array.isArray(response)) {
-        const [chanId, data] = response;
-        onRequest(data)
+        const [chanId, ...data] = response;
+            onRequest(data)
+
     } else {
         if (response.event === 'subscribed') {
             onSubscribe(response)

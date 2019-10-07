@@ -1,4 +1,4 @@
 export const chanelTypes = {
-	TICKER: 'ticker',
-	TRADES: 'trades'
+    TICKER: 'ticker',
+    TRADES: 'trades'
 }
