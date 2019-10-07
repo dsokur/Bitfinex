@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import Ticker from '../components/Ticker/Ticker';
+import OrderBook from '../components/OrderBook/OrderBook';
 
 const mapStateToProps = (state) => {
 	return {
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ticker);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderBook);

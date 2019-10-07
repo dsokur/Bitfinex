@@ -5,23 +5,29 @@ import {wsSubscribe, wsUnsubscribe} from "../services/webSockets";
 import {onTickerRequestData, onTickerSubscribe, onTickerUnsubscribe} from "../reducers/Ticker";
 
 class TickerContainer extends Component {
-    componentDidMount() {
-        wsSubscribe('ticker', this.props.onTickerSubscribe, this.props.onTickerRequestData)
-    }
+	componentDidMount() {
+		wsSubscribe('ticker', this.props.onTickerSubscribe, this.props.onTickerRequestData)
+	}
 
-    componentWillUnmount() {
-        wsUnsubscribe('ticker',this.props.chanId, this.props.onTickerUnsubscribe)
-    }
+	componentWillUnmount() {
+		wsUnsubscribe('ticker', this.props.chanId, this.props.onTickerUnsubscribe)
+	}
 
-    render() {
-        console.log(this.props)
-        return <Ticker/>
-    }
+	render() {
+		return <Ticker {...this.props}/>
+	}
 }
 
-const mapStateToProps = ({Ticker: {chanId}}) => {
+const mapStateToProps = ({Ticker: {
+	chanId, LAST_PRICE,VOLUME,DAILY_CHANGE,
+	DAILY_CHANGE_PERC,
+	LOW,
+	HIGH}}) => {
     return {
-        chanId
+	    chanId, LAST_PRICE,VOLUME,DAILY_CHANGE,
+	    DAILY_CHANGE_PERC,
+	    LOW,
+	    HIGH
     };
 };
 

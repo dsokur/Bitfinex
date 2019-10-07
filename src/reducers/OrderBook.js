@@ -1,6 +1,6 @@
 
 const initialState = {
-	test: '',
+	OrderBook: '',
 };
 
 export default (state = initialState, action) => {

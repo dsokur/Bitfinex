@@ -1,6 +1,6 @@
 
 const initialState = {
-	test: '',
+	Trades: '',
 };
 
 export default (state = initialState, action) => {
