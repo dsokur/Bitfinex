@@ -1,16 +1,22 @@
 import {connect} from 'react-redux'
 import Trades from '../components/Trades/Trades';
-import {wsSubscribe, wsUnsubscribe} from "../services/webSockets";
+import {wsInit, wsSubscribe, wsUnsubscribe} from "../services/webSockets";
 import {onTradesRequestData, onTradesSubscribe, onTradesUnsubscribe} from "../reducers/Trades";
 import React, {Component} from 'react';
+import {chanelTypes} from "../constants";
 
 class TradesContainer extends Component {
+	constructor(props) {
+		super(props);
+		wsInit(chanelTypes.TRADES)
+	}
+
 	componentDidMount() {
-		wsSubscribe('trade', this.props.onTradesSubscribe, this.props.onTradesRequestData)
+		wsSubscribe(chanelTypes.TRADES, this.props.onTradesSubscribe, this.props.onTradesRequestData)
 	}
 
 	componentWillUnmount() {
-		wsUnsubscribe('trade', this.props.chanId, this.props.onTradesUnsubscribe)
+		wsUnsubscribe(chanelTypes.TRADES, this.props.chanId, this.props.onTradesUnsubscribe)
 	}
 
 	render() {
